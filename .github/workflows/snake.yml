@@ -2,17 +2,22 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # chạy mỗi ngày
-  workflow_dispatch:
+    - cron: "0 0 * * *"  # chạy mỗi ngày lúc 00:00 UTC
+  workflow_dispatch:      # cho phép bấm chạy tay
   push:
     branches:
-      - main
+      - main              # đúng với branch của bạn
+
+# CHÚ Ý: phần permissions này rất quan trọng để action được phép push lên branch output
+permissions:
+  contents: write
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Generate snake.svg
